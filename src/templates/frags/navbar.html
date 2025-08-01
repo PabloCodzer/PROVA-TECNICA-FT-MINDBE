@@ -1,0 +1,63 @@
+<nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-store"></i>
+                    </span>
+                    <span><strong>E-commerce</strong></span>
+                </span>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasic" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/lista_pedidos">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </span>
+                        <span>Pedidos</span>
+                    </span>
+                </a>
+                
+                <a class="navbar-item" href="/lista_itens">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-boxes"></i>
+                        </span>
+                        <span>Itens</span>
+                    </span>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<script>
+// não sei porque não funciona o bulma ...ver documentação depois.
+document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    }
+});
+</script>

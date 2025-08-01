@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pedidos</title>
+    
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- DataTables com Bulma -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bulma.min.css">
+    <!-- Responsive DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bulma.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+
+    <link rel="stylesheet" href="static/styles.css">
+    </style>
+
+</head>
+<body>
+{% include "frags/navbar.html" %}
+<section class="section mt-6">
+    <div class="wide-container">
+        <div class="card wide-card">
+            <header class="card-header has-background-primary">
+                <p class="card-header-title has-text-white">
+                    Lista de Pedidos
+                </p>
+                <div class="card-header-icon">
+                    <div class="buttons">
+                        <button id="btnExportExcel" class="button is-small is-light">
+                            <span class="icon">
+                                <i class="fas fa-file-excel"></i>
+                            </span>
+                            <span>Excel</span>
+                        </button>
+                        <button id="btnNovoPedido" class="button is-small is-light" hx-get="/pedidos/novo" hx-target="body">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span>Novo Pedido</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div class="card-content">
+                <div class="table-container">
+                    <table id="tabelaPedidos" class="table is-fullwidth is-striped is-hoverable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Email</th>
+                                <th>Data</th>
+                                <th>Itens</th>
+                                <th>Qtd Total</th>
+                                <th>Total (R$)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para confirmação -->
+<div id="confirmModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Confirmar Exclusão</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            Tem certeza que deseja excluir este pedido?
+        </section>
+        <footer class="modal-card-foot">
+            <button id="confirmDelete" class="button is-danger">Excluir</button>
+            <button id="cancelDelete" class="button">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
+<script>
+{% include "frags/js/PedidosDatatables.js" %}
+</script>
+</body>
+</html>

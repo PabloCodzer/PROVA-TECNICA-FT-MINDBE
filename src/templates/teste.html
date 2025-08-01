@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <h1>Lista de Pedidos</h1>
+    
+    <div id="pedidos-container">
+        <div class="loading">Carregando pedidos...</div>
+    </div>
+
+
+
+        {% comment %} <!-- Formulário de Filtros -->
+    <form method="get" action="/lista_pedidos">
+        <input type="text" name="nome_cliente" placeholder="Nome do cliente" 
+               value="{{ filtros.nome_cliente or '' }}">
+        
+        <input type="date" name="data_inicio" 
+               value="{{ filtros.data_inicio or '' }}">
+        
+        <input type="date" name="data_fim" 
+               value="{{ filtros.data_fim or '' }}">
+        
+        <input type="number" name="pagina" value="{{ filtros.pagina }}" hidden>
+        <input type="number" name="por_pagina" value="{{ filtros.por_pagina }}" hidden>
+        
+        <button type="submit">Filtrar</button>
+    </form>
+    
+    <!-- Lista de Pedidos -->
+    {% if pedidos %}
+        <div class="pedidos-container">
+            {% for pedido in pedidos %}
+            <div class="pedido-card">
+                <h3>{{ pedido.nome_cliente }} - {{ pedido.data_pedido }}</h3>
+                <p>ID: {{ pedido.id }}</p>
+                <p>Email: {{ pedido.email_cliente }}</p>
+                
+                <h4>Itens:</h4>
+                <ul>
+                    {% for item in pedido.itens %}
+                    <li>
+                        {{ item.nome }} - 
+                        {{ item.quantidade }} x 
+                        R$ {{ "%.2f"|format(item.preco_unitario) }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Nenhum pedido encontrado</p>
+    {% endif %} {% endcomment %}
+
+
+
+    # @app.get("/lista_pedidos")
+# async def pedidos_template(
+#     request: Request,
+#     nome_cliente: Optional[str] = None,
+#     data_inicio: Optional[datetime] = None,
+#     data_fim: Optional[datetime] = None,
+#     pagina: int = 1,
+#     por_pagina: int = 10,
+#     use_cases: PedidoUseCases = Depends(get_use_cases)
+# ):
+#     # Obtém os dados da rota de API
+#     lista_pedidos = await use_cases.listar_pedidos(
+#         nome_cliente=nome_cliente,
+#         data_inicio=data_inicio,
+#         data_fim=data_fim,
+#         pagina=pagina,
+#         por_pagina=por_pagina
+#     )
+ 
+#     pedidos = []
+#     for pedido in lista_pedidos:
+#         pedidos.append({
+#             "id": str(pedido.id),
+#             "nome_cliente": pedido.nome_cliente,
+#             "email_cliente": pedido.email_cliente,
+#             "data_pedido": pedido.data_pedido.strftime("%d/%m/%Y"),
+#             "itens": [{
+#                 "nome": item.nome,
+#                 "quantidade": item.quantidade,
+#                 "preco_unitario": item.preco_unitario
+#             } for item in pedido.itens]
+#         })
+    
+#     return templates.TemplateResponse(
+#         "pedidos.html",
+#         {
+#             "request": request,
+#             "pedidos": pedidos,
+#             "filtros": {
+#                 "nome_cliente": nome_cliente,
+#                 "data_inicio": data_inicio.strftime("%Y-%m-%d") if data_inicio else None,
+#                 "data_fim": data_fim.strftime("%Y-%m-%d") if data_fim else None,
+#                 "pagina": pagina,
+#                 "por_pagina": por_pagina
+#             }
+#         }
+#     )
