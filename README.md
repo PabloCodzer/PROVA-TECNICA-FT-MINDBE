@@ -19,8 +19,8 @@ Fullstack Python (Pleno)
 
 🔍 Comandos Úteis
 ### 1. Construir a imagem e rodar
-docker build -t ecommerce-pedidos .
-docker run -p 8000:8000 mindbe-ecommerce:latest
+### docker build -t ecommerce-pedidos .
+### docker run -p 8000:8000 mindbe-ecommerce:latest
 
 
 ## 🏗️ Estrutura do Projeto
