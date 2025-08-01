@@ -18,23 +18,23 @@ Fullstack Python (Pleno)
 ## 🛠️ Configuração
 
 🔍 Comandos Úteis
-### 1. Construir a imagem e rodar
+###🐳 1. Construir a imagem e rodar
 ### docker build -t ecommerce-pedidos .
 ### docker run -p 8000:8000 mindbe-ecommerce:latest
 
 
 ## 🏗️ Estrutura do Projeto
-/app
-├── main.py
-├── requirements.txt
-├── src/
-│   ├── core/          # Configurações
-│   ├── domain/        # Modelos Pydantic
-│   ├── repositories/  # Acesso a dados
-│   ├── routes/        # Endpoints
-│   ├── templates/     # Views Jinja2
-│   └── usecases/      # Lógica de negócio
-
+```markdown
+- /app
+  - main.py
+  - requirements.txt
+  - /src
+    - /core
+    - /domain
+    - /repositories
+    - /routes
+    - /templates
+    - /usecases
 
 ## 📌 Observações
 ### Banco Mongo usado foi a versão MongoDb Atlas
